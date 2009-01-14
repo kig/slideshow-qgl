@@ -1,27 +1,20 @@
 /*
+    QGL Slideshow - small Qt 4 OpenGL slideshow program
 
-Copyright (C) 2009  Ilmari Heikkinen <ilmari.heikkinen@gmail.com>
+    Copyright (C) 2009  Ilmari Heikkinen <ilmari.heikkinen@gmail.com>
 
-Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without
-restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following
-conditions:
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
@@ -200,7 +193,7 @@ void Slideshow::mouseReleaseEvent (QMouseEvent* event)
 			tr("Open Directory"),
 			currentDir.absolutePath());
 		if (dirname.count() > 0)
-			setDirectory (dirname); 
+			setDirectory (dirname);
 	}
 	dragging = false;
 }
@@ -249,27 +242,27 @@ void Slideshow::initializeGL ()
 void Slideshow::paintGL ()
 {
 	int elapsed = timer.elapsed();
-	
+
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	glPushMatrix ();
-	
+
 	glLoadIdentity ();
 	double sz = std::min(width(), height());
 	glScaled (currentZoom, currentZoom, 1.0);
 	glTranslated (-panX + (width()-sz)/2.0, -panY + (height()-sz)/2.0, -10.0);
 	glScaled (sz, sz, 1.0);
-	
+
 	glEnableClientState (GL_VERTEX_ARRAY);
 	glEnableClientState (GL_TEXTURE_COORD_ARRAY);
 	glVertexPointer (3, GL_FLOAT, 0, rect);
 	glTexCoordPointer (2, GL_FLOAT, 0, trect);
-	
+
 	drawImage(texs[0], inImage, fadeInOpacity(elapsed));
 	drawImage(texs[1], outImage, fadeOutOpacity(elapsed));
-	
+
 	glPopMatrix ();
-	
+
 	int err = glGetError();
 	if (err != 0)
 		std::cerr << "GL Error: " << err << "\n";
@@ -294,12 +287,12 @@ void Slideshow::sizeImage (QImage image)
 	double scale = 1.0;
 	if (image.width() > image.height()) {
 		if (width() > height()) {
-			scale = std::min((double)image.width() / (double)image.height(), 
+			scale = std::min((double)image.width() / (double)image.height(),
 					 (double)width() / (double)height());
 		}
 	} else {
 		if (width() < height()) {
-			scale = std::min((double)image.height() / (double)image.width(), 
+			scale = std::min((double)image.height() / (double)image.width(),
 					 (double)height() / (double)width());
 		}
 	}
