@@ -11,6 +11,8 @@ Uninstall:
   rm ~/bin/slideshow-qgl
 
 Requirements: Qt 4 OpenGL library (libqt4-opengl-dev)
+You also need a display driver that supports non-power-of-two textures.
+Otherwise the images fail to display.
 
 Usage:
   slideshow-qgl [directory]
