@@ -23,10 +23,11 @@
 
 int main (int argc, char *argv[])
 {
-        QApplication app (argc, argv);
-        QString dirname = argc > 1 ? QString(argv[1]) : QString(".");
-        Slideshow widget (dirname);
-        widget.show ();
+  QApplication app (argc, argv);
+  QStringList args = app.arguments();
+  QString dirname = args.count() > 1 ? args.at(1) : QString(".");
+  Slideshow widget (dirname);
+  widget.show ();
 
-        return app.exec ();
+  return app.exec ();
 }

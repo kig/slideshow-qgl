@@ -24,76 +24,88 @@
 
 #include <QGLWidget>
 #include <QTime>
+#include <QTimer>
 #include <QDir>
 
 
 class Slideshow : public QGLWidget
 {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	Slideshow (QString &dirname, QWidget* parent = 0);
-	~Slideshow ();
+  Slideshow (QString &dirname, QWidget* parent = 0);
+  ~Slideshow ();
 
-	QSize minimumSizeHint () const;
-	QSize sizeHint () const;
+  QSize minimumSizeHint () const;
+  QSize sizeHint () const;
 
-	void nextImage ();
-	void previousImage ();
-	void gotoImage (int idx);
+  void nextImage ();
+  void previousImage ();
+  void gotoImage (int idx);
 
-	void resetView ();
-	void pan (double dx, double dy);
-	void zoom (double z);
+  void resetView ();
+  void pan (double dx, double dy);
+  void zoom (double z);
 
-	void setDirectory (QString dirname);
+  void setDirectory (QString dirname);
 
-	float fadeTime;
+  void toggleSlideshow ();
+  void startSlideshow ();
+  void stopSlideshow ();
 
-	QDir currentDir;
-	int currentFileIndex;
+  bool slideshowRunning;
+  int slideTime;
+
+  int fadeTime;
+
+  QDir currentDir;
+  QStringList currentEntries;
+  int currentFileIndex;
 
 protected:
-	void initializeGL ();
-	void paintGL ();
-	void resizeGL (int width, int height);
+  void initializeGL ();
+  void paintGL ();
+  void resizeGL (int width, int height);
 
-	void setTexture (QImage ts[], uint length);
-	void mipmap (QImage t, QImage **ts, uint *length);
+  void setTexture (QImage ts[], uint length);
+  void mipmap (QImage t, QImage **ts, uint *length);
 
-	void loadTexture (QString filename);
+  void loadTexture (QString filename);
 
-	void drawImage (GLuint tex, QImage image, GLfloat opacity);
-	void sizeImage (QImage image);
+  void drawImage (GLuint tex, QImage image, GLfloat opacity);
+  void sizeImage (QImage image);
 
-	void mouseMoveEvent (QMouseEvent* event);
-	void mousePressEvent (QMouseEvent* event);
-	void mouseReleaseEvent (QMouseEvent* event);
-	void keyPressEvent (QKeyEvent* event);
-	void keyReleaseEvent (QKeyEvent* event);
+  void mouseMoveEvent (QMouseEvent* event);
+  void mousePressEvent (QMouseEvent* event);
+  void mouseReleaseEvent (QMouseEvent* event);
+  void keyPressEvent (QKeyEvent* event);
+  void keyReleaseEvent (QKeyEvent* event);
 
-	GLfloat fadeInOpacity (float ms);
-	GLfloat fadeOutOpacity (float ms);
+  GLfloat fadeInOpacity (float ms);
+  GLfloat fadeOutOpacity (float ms);
 
-	QTime timer;
+  QTime timer;
+  QTimer* slideTimer;
 
-	QImage inImage, outImage;
+  QImage inImage, outImage;
 
-	int dragX;
-	int dragY;
-	int startDragX;
-	int startDragY;
-	bool dragging;
+  int dragX;
+  int dragY;
+  int startDragX;
+  int startDragY;
+  bool dragging;
 
-	double panX;
-	double panY;
+  bool fullscreen;
+  
+  double panX;
+  double panY;
 
-	double currentZoom;
+  double currentZoom;
 
-	GLuint *texs;
+  GLuint *texs;
 
-	static GLfloat rect[];
-	static GLfloat trect[];
+  static GLfloat rect[];
+  static GLfloat trect[];
 };
 
 #endif
