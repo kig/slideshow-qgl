@@ -40,3 +40,5 @@ Keyboard controls:
 Requirements: Qt 4 OpenGL library (libqt4-opengl-dev)
 You also need a display driver that supports GL_TEXTURE_RECTANGLE,
 otherwise the images fail to display.
+
+Author: Ilmari Heikkinen <ilmari.heikkinen@gmail.com>
