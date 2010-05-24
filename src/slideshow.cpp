@@ -412,6 +412,10 @@ void Slideshow::loadTexture (QString filename)
 {
   logGLError("before loadTexture");
   QImage t = convertToGLFormat( QPixmap (filename).toImage() );
+  if (t.width() > 2048 || t.height() > 2048) {
+    // better downscale, old graphics cards don't do big textures
+    t = t.scaled (2048, 2048, Qt::KeepAspectRatio);
+  }
   logGLError("in convertToGLFormat");
   inImage = t;
   setTexture (&t, 1);
