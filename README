@@ -1,7 +1,14 @@
 QGL Slideshow - a simple Qt4 OpenGL slideshow app
 
+Features:
+  - recursive dir traversal
+  - slideshow mode
+  - fullscreen mode
+  - zoom
+
 Compile:
-  qmake[-qt4]
+  [apt-get install libqt4-opengl-dev qmake-qt4]
+  qmake [or qmake-qt4 depending on your distro]
   make
 
 Install:
@@ -10,18 +17,26 @@ Install:
 Uninstall:
   rm ~/bin/slideshow-qgl
 
-Requirements: Qt 4 OpenGL library (libqt4-opengl-dev)
-You also need a display driver that supports non-power-of-two textures.
-Otherwise the images fail to display.
-
 Usage:
   slideshow-qgl [directory]
 
-Controls:
+Mouse controls:
   Left click = go to next image
   Right click = go to previous image
-  Middle click = open directory
+  Middle click = open new directory
   
   Left drag = pan
   Right drag = zoom
 
+Keyboard controls:
+  Left arrow = previous image
+  Right arrow = next image
+  Space = start / stop slideshow
+  S = start / stop slideshow
+  F11 = toggle fullscreen mode
+  F = toggle fullscreen mode
+  Q = quit
+
+Requirements: Qt 4 OpenGL library (libqt4-opengl-dev)
+You also need a display driver that supports GL_TEXTURE_RECTANGLE,
+otherwise the images fail to display.
