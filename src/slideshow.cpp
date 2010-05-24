@@ -255,15 +255,16 @@ void Slideshow::mouseReleaseEvent (QMouseEvent* event)
 
 void Slideshow::keyPressEvent (QKeyEvent* event)
 {
-  if (event->key() == Qt::Key_S || event->key() == Qt::Key_Space) {
+  int key = event->key();
+  if (key == Qt::Key_S || key == Qt::Key_Space) {
     toggleSlideshow ();
-  } else if (event->key() == Qt::Key_Left) {
+  } else if (key == Qt::Key_Left) {
     previousImage ();
-  } else if (event->key() == Qt::Key_Right) {
+  } else if (key == Qt::Key_Right) {
     nextImage ();
-  } else if (event->key() == Qt::Key_Q) {
+  } else if (key == Qt::Key_Q) {
     exit (0);
-  } else if (event->key() == Qt::Key_F) {
+  } else if (key == Qt::Key_F || key == Qt::Key_F11) {
     if (fullscreen)
       showNormal();
     else
